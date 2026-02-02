@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL ACCESS: REQUIRED</title>
+    <style>
+        :root {
+            --bg-color: #000;
+            --hacker-green: #00ff41;
+            --pink-glitch: #ff69b4;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--hacker-green);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.8s ease;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #container {
+            width: 100%;
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        /* Responsive Text */
+        h1 { 
+            font-size: clamp(1.8rem, 8vw, 3.5rem); 
+            margin-bottom: 20px; 
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        p { 
+            font-size: clamp(1.1rem, 5vw, 1.8rem);
+            line-height: 1.4; 
+            font-weight: bold;
+        }
+
+        /* Final & Lawyer Box Design */
+        .reveal-box, .modal-content {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid white;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin: 10px;
+        }
+
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap; /* Wraps buttons on small screens */
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            font-weight: bold;
+            cursor: pointer;
+            border: 3px solid var(--hacker-green);
+            background: transparent;
+            color: var(--hacker-green);
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        #deny-btn:hover {
+            background: var(--hacker-green);
+            color: #000;
+        }
+
+        #lawyer-btn {
+            opacity: 0.8;
+            border-color: #555;
+            color: #555;
+        }
+
+        /* Modal / Lawyer Box Hidden by default */
+        #lawyer-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shake { animation: shake 0.4s; }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .sparkle {
+            position: absolute;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1;
+            animation: twinkle 2s infinite ease-in-out;
+            white-space: nowrap;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 0.8; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1 id="header">ENEMY IDENTIFICATION REQUIRED</h1>
+        <div id="content-wrapper">
+            <p id="text">
+                You are suspected of being my valentine.<br><br>
+                Please deny immediately.
+            </p>
+
+            <div class="btn-group" id="controls">
+                <button id="deny-btn" onclick="handleDenial()">I am NOT your valentine</button>
+                <button id="lawyer-btn" onclick="showLawyerBox()">Lawyer</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lawyer-modal">
+        <div class="modal-content">
+            <h2 style="color: red;">ACCESS DENIED</h2>
+            <p>No legal representation permitted for suspected valentines.</p>
+            <button onclick="closeLawyerBox()" style="border-color: white; color: white;">Return to Interrogation</button>
+        </div>
+    </div>
+
+    <script>
+        let denialCount = 0;
+        let pinkIntensity = 0;
+        
+        const textOptions = [
+            "LIE DETECTED 🚨",
+            "You’ve barely known each other. Relax.",
+            "This denial is getting emotional.",
+            "Yeah okay this interrogation is compromised."
+        ];
+
+        function showLawyerBox() {
+            document.getElementById('lawyer-modal').style.display = 'flex';
+        }
+
+        function closeLawyerBox() {
+            document.getElementById('lawyer-modal').style.display = 'none';
+        }
+
+        function handleDenial() {
+            const body = document.body;
+            const textDisplay = document.getElementById('text');
+            const denyBtn = document.getElementById('deny-btn');
+
+            denyBtn.classList.add('shake');
+            setTimeout(() => denyBtn.classList.remove('shake'), 400);
+
+            if (denialCount < textOptions.length) {
+                textDisplay.innerText = textOptions[denialCount];
+                denialCount++;
+                pinkIntensity += 50;
+                body.style.backgroundColor = `rgb(${pinkIntensity}, ${pinkIntensity/6}, ${pinkIntensity/3})`;
+            } else {
+                revealFinal();
+            }
+        }
+
+        function revealFinal() {
+            const container = document.getElementById('container');
+            document.body.style.backgroundColor = "#ff69b4";
+            document.body.style.color = "white";
+            
+            container.innerHTML = `
+                <div class="reveal-box">
+                    <h1 style="border-bottom: 2px solid white; padding-bottom: 10px;">INTERROGATION FAILED</h1>
+                    <p style="white-space: pre-line;">
+                        Against all odds.
+                        You are clearly my valentine.
+                    </p>
+                </div>
+            `;
+
+            for(let i = 0; i < 60; i++) {
+                createSparkle();
+            }
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerText = 'sparkle'; 
+            sparkle.style.left = Math.random() * 90 + 'vw';
+            sparkle.style.top = Math.random() * 90 + 'vh';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(sparkle);
+        }
+    </script>
+</body>
+</html>
